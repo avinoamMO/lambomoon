@@ -18,11 +18,23 @@ class App extends Component {
     super();
     this.state = {};
   }
-  componentDidMount() { 
-    bitstamp
-      .fetchOrderBook("BTC/USD")
+  componentDidMount() {
+    // bitstamp
+    //   .fetchOrderBook("BTC/USD")
+    //   .then((response) => this.setState({ data: response }))
+    //   .then(() => {
+    //     chartValues = [];
+    //     for (let candle of chartCandles) {
+    //       c = calcRoiFromBook(candle, this.state.data, true);
+    //       chartValues.push(c);
+    //     }
+    //     this.setState({ chartValues: chartValues });
+    //   });
+
+    fetch("http://localhost:3007/getbook/bit2c")
+      .then((res) => res.json())
       .then((response) => this.setState({ data: response }))
-      .then(() => {
+      .then((result) => {
         chartValues = [];
         for (let candle of chartCandles) {
           c = calcRoiFromBook(candle, this.state.data, true);

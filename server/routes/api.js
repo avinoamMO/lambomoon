@@ -11,10 +11,8 @@ let orderBook = [];
 //
 
 router.get("/getbook/:exchangeName", async function (req, response) {
-    
-    
   let exchange = new ccxt[req.params.exchangeName]();
-  let orderBook = await exchange.fetchOrderBook("BTC/USD");
+  let orderBook = await exchange.fetchOrderBook("BTC/NIS");
   response.send(orderBook);
 });
 
