@@ -4,14 +4,14 @@ import "./App.css";
 import { calcRoiFromBook } from "./logic/calcRoiFromOrderBook";
 import { calcRoiFromBog } from "./logic/calcRoiFromBog";
 import Chart from "./components/Chart";
-import ccxt from "ccxt";
+
 
 const chartCandles = [1000, 2500, 5000, 10000, 25000, 50000, 75000];
 
 let chartValues = [];
 let bogValues = [];
 let c = 0;
-let bitstamp = new ccxt.bitstamp();
+
 
 class App extends Component {
   constructor(props) {
@@ -19,22 +19,27 @@ class App extends Component {
     this.state = {};
   }
   componentDidMount() {
-    // bitstamp
-    //   .fetchOrderBook("BTC/USD")
-    //   .then((response) => this.setState({ data: response }))
-    //   .then(() => {
-    //     chartValues = [];
-    //     for (let candle of chartCandles) {
-    //       c = calcRoiFromBook(candle, this.state.data, true);
-    //       chartValues.push(c);
-    //     }
-    //     this.setState({ chartValues: chartValues });
-    //   });
+  
+    /*
+This code gets was commented out as the data is now being received via server's API, 
+but this is the syntax to obtain data directly from CCXT via client:
 
+    bitstamp
+      .fetchOrderBook("BTC/USD")
+      .then((response) => this.setState({ data: response }))
+      .then(() => {
+        chartValues = [];
+        for (let candle of chartCandles) {
+          c = calcRoiFromBook(candle, this.state.data, true);
+          chartValues.push(c);
+        }
+        this.setState({ chartValues: chartValues });
+      });
+*/
     fetch("http://localhost:3007/getbook/bit2c")
       .then((res) => res.json())
       .then((response) => this.setState({ data: response }))
-      .then((result) => {
+      .then(() => {
         chartValues = [];
         for (let candle of chartCandles) {
           c = calcRoiFromBook(candle, this.state.data, true);
